@@ -1,7 +1,6 @@
 package com.stock.data;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class WatchSymbol {
 
@@ -9,14 +8,13 @@ public class WatchSymbol {
     public BigDecimal quoterlyDividendAmount;
     public BigDecimal upperYield;
     public BigDecimal lowerYield;
-    public Date dividendDate1;
-    public Date dividendDate2;
-    public Date dividendDate3;
-    public Date dividendDate4;
+    public String dividendDate1;
+    public String dividendDate2;
+    public String dividendDate3;
+    public String dividendDate4;
 
     public WatchSymbol() {
 	super();
-	// TODO Auto-generated constructor stub
     }
 
     public String getSymbol() {
@@ -51,35 +49,35 @@ public class WatchSymbol {
 	this.lowerYield = lowerYield;
     }
 
-    public Date getDividendDate1() {
+    public String getDividendDate1() {
 	return dividendDate1;
     }
 
-    public void setDividendDate1(final Date dividendDate1) {
+    public void setDividendDate1(final String dividendDate1) {
 	this.dividendDate1 = dividendDate1;
     }
 
-    public Date getDividendDate2() {
+    public String getDividendDate2() {
 	return dividendDate2;
     }
 
-    public void setDividendDate2(final Date dividendDate2) {
+    public void setDividendDate2(final String dividendDate2) {
 	this.dividendDate2 = dividendDate2;
     }
 
-    public Date getDividendDate3() {
+    public String getDividendDate3() {
 	return dividendDate3;
     }
 
-    public void setDividendDate3(final Date dividendDate3) {
+    public void setDividendDate3(final String dividendDate3) {
 	this.dividendDate3 = dividendDate3;
     }
 
-    public Date getDividendDate4() {
+    public String getDividendDate4() {
 	return dividendDate4;
     }
 
-    public void setDividendDate4(final Date dividendDate4) {
+    public void setDividendDate4(final String dividendDate4) {
 	this.dividendDate4 = dividendDate4;
     }
 
