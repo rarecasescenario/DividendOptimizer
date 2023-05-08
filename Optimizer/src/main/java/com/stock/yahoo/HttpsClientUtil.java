@@ -5,9 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -16,52 +13,6 @@ import javax.net.ssl.HttpsURLConnection;
  * https://stackoverflow.com/questions/9501237/read-input-stream-twice
  */
 public class HttpsClientUtil {
-
-    public static void main0(final String[] args) throws Exception {
-	final HttpsClientUtil dude = new HttpsClientUtil();
-	// System.out.println("BBY = " + dude.getRawPercent("BBY"));
-
-	final List<SymbolCurrentState> csl = new ArrayList<>();
-
-	final List<String> workList = getSymbolList();
-
-	for (int i = 0; i < workList.size(); i++) {
-
-	    final String s = workList.get(i);
-	    String httpResult = null;
-	    try {
-		httpResult = dude.getRawPercent(s);
-		System.out.println(s + "   " + httpResult);
-	    } catch (final Exception e) {
-		System.out.println("ERROR for symbol: " + s);
-	    }
-
-	    httpResult = dude.getRawPercent(s);
-
-	    final String[] r = httpResult.split("\\s*,\\s*");
-	    BigDecimal dPrice = null;
-	    BigDecimal dPercent = null;
-	    try {
-		dPrice = new BigDecimal(r[0]);
-		dPercent = new BigDecimal(r[1]);
-	    } catch (final NumberFormatException nfe) {
-		dPrice = new BigDecimal("0");
-		dPercent = new BigDecimal("0");
-		System.out.println("ERROR for symbol: " + s);
-	    }
-//			SymbolCurrentState scs = new SymbolCurrentState(s, dPrice, dPercent);
-//			if (dPrice.compareTo(new BigDecimal("0")) == 1)
-//				csl.add(scs);
-	}
-	System.out.println("===============  Result ===================");
-	csl.forEach(t -> {
-
-	    // System.out.println(t.getSymbol() + " " + t.getPrice() + " " +
-	    // t.getChange_percent() + "%");
-	    System.out.println(t.toString());
-	});
-
-    }
 
     public static void main(final String[] args) throws Exception {
 	final HttpsClientUtil dude = new HttpsClientUtil();
@@ -138,14 +89,11 @@ public class HttpsClientUtil {
 	    String rawMarketCap = null;
 	    if (inputLine.contains("data-test=\"MARKET_CAP-value")) {
 
-		// System.out.println("pStart = " + pStart);
 		final int pStart = inputLine.indexOf("data-test=\"MARKET_CAP-value\">") + 29;
 		final int pEnd = pStart + 9;
 
 		rawMarketCap = inputLine.substring(pStart, pEnd);
-		// System.out.println("Percent: " + rawPercent);
 		sMarketCap = makeItDigit(rawMarketCap);
-		// System.out.println("MARKET CAP: " + sMarketCap);
 	    }
 
 	}
@@ -178,34 +126,6 @@ public class HttpsClientUtil {
 
 	in.close();
 	return result;
-    }
-
-    public static List<String> getSymbolList() {
-	String symbols = "FIS,F";
-	// symbols =
-	// "AAL,AMD,BBY,BL,CC,CP.TO,PTON,AFRM,IAA,MEG.TO,SNAP,CCO.TO,ENB.TO,PYPL,Z,SWN,CPG.TO,OVV,ACB,POW.TO,CNQ.TO,BTO,MEG.TO,AIM,SU.TO,ARX.TO,BB,VET,CNR,ALA.TO,PEY,ERF,PD,ELD,AEM,PSK,CG,ARE,RY.TO,BMO.TO,TD.TO";
-	// String symbols =
-	// "AAL,ENB.TO,BBY,RY.TO,BMO.TO,TD.TO,MEG.TO,CC,CP.TO,PTON,AFRM,IAA,SE,SPLK";
-	// String symbols = "ENB.TO,CP.TO,RY.TO,BMO.TO,TD.TO";
-
-	// Will go up on Feb 16, 2022 (FM)
-	// String symbols = "FIS,F";
-
-	// Today watch list Feb 16, 2022
-	// symbols = "AFRM,ZM,F,FIS,PTON,WELL,ENB.TO,SLF.TO,RY.TO,ARX.TO";
-	// symbols = "ENB.TO, TD.TO, BMO.TO, RY.TO, ABX.TO, CCO.TO, BNS.TO, POW.TO,
-	// CM.TO, SLF.TO, NA.TO, LB.TO, CWB.TO, CNQ.TO, MFC.TO, GWO.TO,IGM.TO, SU.TO,
-	// T.TO, BCE.TO, CP.TO, NTR.TO, ATD.TO, SHOP.TO, RCI-B.TO, BB.TO, FM.TO,
-	// MEG.TO";
-	symbols = "TD.TO, ENB.TO, CNQ.TO, CVE.TO, SU.TO, RY.TO";
-
-	// most active
-	// String symbols = "AMD,SOFI,RBGLY,AAPL,GT,SPLK,TSLA,F,AMC";
-	final String symb[] = symbols.split("\\s*,\\s*");
-
-	final List<String> symbolList = Arrays.asList(symb);
-
-	return symbolList;
     }
 
     /*
@@ -342,9 +262,7 @@ public class HttpsClientUtil {
 
 		    result = price + ",                    " + percent;
 		}
-
 	    }
-
 	}
 	in.close();
 	return result;
@@ -367,7 +285,6 @@ public class HttpsClientUtil {
 		final int startValue = inputLine.indexOf("value=\"");
 		final int endValue = inputLine.indexOf("active=\"\">");
 		rawResult = inputLine.substring(startValue, endValue);
-
 		price = makeItDigit(rawResult);
 	    }
 	}
