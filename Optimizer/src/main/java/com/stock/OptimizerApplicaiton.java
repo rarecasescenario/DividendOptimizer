@@ -39,9 +39,14 @@ public class OptimizerApplicaiton {
 	String action = "";
 	int res;
 	int res2;
-	System.out.println("========================================================================");
-	System.out.println("| Symbol  |Shares| Price  | Position,$| QDiv,$ | QDivAmt|CYield|UpYield|");
-	System.out.println("========================================================================");
+	int resHold;
+	int resTotalAssets;
+	int resDiv;
+	int resAction;
+
+	System.out.println("========================================================================================");
+	System.out.println("| Symbol  |Shares| Price  | Position,$| QDiv,$ | QDivAmt|UpperY| MidY | CYield | YDiff |");
+	System.out.println("========================================================================================");
 
 	for (int i = 0; i < sl.size(); i++) {
 	    final String symbol = sl.get(i).getSymbol();
@@ -54,7 +59,11 @@ public class OptimizerApplicaiton {
 		    .findFirst();
 
 	    BigDecimal symbolQuaterlyDividends = new BigDecimal(0);
+	    BigDecimal upperYield = new BigDecimal(0);
+	    BigDecimal lowerYield = new BigDecimal(0);
 	    BigDecimal yield = new BigDecimal(0);
+	    BigDecimal middleOfYieldRange = new BigDecimal(0);
+	    BigDecimal yieldDiff = new BigDecimal(0);
 	    int numberOfShares = 0;
 
 	    final Optional<CurrentPosition> cplR = cpl.stream().filter(r -> r.getSymbol().equalsIgnoreCase(symbol))
@@ -73,19 +82,22 @@ public class OptimizerApplicaiton {
 		totalAssets = BigDecimal.valueOf(0.0);
 	    }
 
+	    upperYield = ws.get().getUpperYield();
+	    lowerYield = ws.get().getLowerYield();
+
 	    yield = ws.get().quoterlyDividendAmount.multiply(BigDecimal.valueOf(400)).divide(scs.get().getPrice(),
 		    RoundingMode.HALF_EVEN);
+	    middleOfYieldRange = (upperYield.add(lowerYield)).divide(BigDecimal.valueOf(2), 3, RoundingMode.HALF_EVEN);
 
-//	    System.out.println(symbol + " | " + scs.get().getPrice() + " | " + totalAssets + " | " + numberOfShares
-//		    + " | " + ws.get().getQuoterlyDividendAmount() + " | " + symbolQuaterlyDividends + " | " + yield
-//		    + " | " + ws.get().getUpperYield());
+	    yieldDiff = yield.subtract(middleOfYieldRange);
 
 	    // Action = "Strong Buy" if CYield is greater than UpYield
 	    res = yield.compareTo(ws.get().getUpperYield());
 	    res2 = ws.get().getUpperYield().compareTo(BigDecimal.valueOf(0.0));
+	    resHold = yield.compareTo(middleOfYieldRange);
 
 	    if (res == 0 || res == 1 && res2 != 0) {
-		action = "Strong Buy";
+		action = "Buy";
 	    } else {
 		action = "";
 	    }
@@ -94,17 +106,40 @@ public class OptimizerApplicaiton {
 		action = "";
 	    }
 
+	    if (resHold == 1 && res == -1) {
+		action = "Hold";
+	    }
+	    if (resHold == -1) {
+		action = "Sell";
+	    }
 //	    res = yield.compareTo(ws.get().lowerYield);
 //	    if (res == -1) {
 //		action = "Sell Now";
 //	    }
 
-	    System.out.printf("| %-7S | %4d | %6.2f | %,9.2f | %6.2f | %6.2f | %4.2f | %5.2f | %-12S %n", symbol,
-		    numberOfShares, scs.get().getPrice(), totalAssets, ws.get().getQuoterlyDividendAmount(),
-		    symbolQuaterlyDividends, yield, ws.get().getUpperYield(), action);
+	    String strShares = (numberOfShares != 0) ? String.format("%3d", numberOfShares) : "   ";
+	    resTotalAssets = totalAssets.compareTo(BigDecimal.valueOf(0.0));
+	    String strPosition = (resTotalAssets == 1) ? String.format("%,9.2f", totalAssets) : "   ";
+
+	    resDiv = symbolQuaterlyDividends.compareTo(BigDecimal.valueOf(0.0));
+	    String strSymbolQDiv = (resDiv == 1) ? String.format("%6.2f", symbolQuaterlyDividends) : "   ";
+
+	    // action = (numberOfShares == 0 && !action.equalsIgnoreCase("sell")) ? action :
+	    // " ";
+	    if (numberOfShares == 0 && action.equalsIgnoreCase("buy")) {
+		// do nothing
+	    } else if (numberOfShares == 0 && action.equalsIgnoreCase("sell")) {
+		action = "   ";
+	    } else if (numberOfShares == 0 && action.equalsIgnoreCase("hold")) {
+		action = "   ";
+	    }
+
+	    System.out.printf("| %-7S | %4s | %6.2f | %9s | %6.2f | %6s | %4.2f | %4.2f | %5.2f | % 5.3f | %-12s %n",
+		    symbol, strShares, scs.get().getPrice(), strPosition, ws.get().getQuoterlyDividendAmount(),
+		    strSymbolQDiv, upperYield, middleOfYieldRange, yield, yieldDiff, action);
 	}
 	totalAccount = totalAccount.add(cash);
-	System.out.println("========================================================================");
+	System.out.println("========================================================================================");
 	System.out.printf("  Quaterly Dividends,$ %,8.2f  Account Total,$: %,10.2f %n", totalDividends, totalAccount);
 	System.out.printf("  Available Cash,$ %,10.2f %n", cash);
     }

@@ -14,8 +14,8 @@ public class SymbolCurrentState {
 	super();
     }
 
-    public SymbolCurrentState(final String symbol, final BigDecimal price, final BigDecimal previousClose,
-	    final BigDecimal changedPercent, final BigDecimal marketCap) {
+    public SymbolCurrentState(String symbol, BigDecimal price, BigDecimal previousClose, BigDecimal changedPercent,
+	    BigDecimal marketCap) {
 	super();
 	this.symbol = symbol;
 	this.price = price;
@@ -28,7 +28,7 @@ public class SymbolCurrentState {
 	return symbol;
     }
 
-    public void setSymbol(final String symbol) {
+    public void setSymbol(String symbol) {
 	this.symbol = symbol;
     }
 
@@ -36,7 +36,7 @@ public class SymbolCurrentState {
 	return price;
     }
 
-    public void setPrice(final BigDecimal price) {
+    public void setPrice(BigDecimal price) {
 	this.price = price;
     }
 
@@ -44,7 +44,7 @@ public class SymbolCurrentState {
 	return previousClose;
     }
 
-    public void setPreviousClose(final BigDecimal previousClose) {
+    public void setPreviousClose(BigDecimal previousClose) {
 	this.previousClose = previousClose;
     }
 
@@ -52,7 +52,7 @@ public class SymbolCurrentState {
 	return changedPercent;
     }
 
-    public void setChangedPercent(final BigDecimal changedPercent) {
+    public void setChangedPercent(BigDecimal changedPercent) {
 	this.changedPercent = changedPercent;
     }
 
@@ -60,7 +60,7 @@ public class SymbolCurrentState {
 	return marketCap;
     }
 
-    public void setMarketCap(final BigDecimal marketCap) {
+    public void setMarketCap(BigDecimal marketCap) {
 	this.marketCap = marketCap;
     }
 

@@ -18,8 +18,8 @@ public class Utility {
      * @return
      */
     public static List<WatchSymbol> readWatchList() {
-	final List<WatchSymbol> r = new ArrayList<>();
-	final String fileName = "C:\\AV\\WorkProjects\\DividendOptimizer\\Optimizer\\src\\main\\resources\\WatchList.csv";
+	List<WatchSymbol> r = new ArrayList<>();
+	String fileName = "C:\\AV\\WorkProjects\\DividendOptimizer\\Optimizer\\src\\main\\resources\\WatchList.csv";
 
 	try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
@@ -32,8 +32,8 @@ public class Utility {
 		    continue;
 		}
 
-		final WatchSymbol ws = new WatchSymbol();
-		final String[] data = line.split(",");
+		WatchSymbol ws = new WatchSymbol();
+		String[] data = line.split(",");
 
 		ws.setSymbol(data[0]);
 
@@ -54,7 +54,7 @@ public class Utility {
 		// LowerYield
 		BigDecimal ly = new BigDecimal(0);
 		if (data[3].length() > 0) {
-		    ly = new BigDecimal(data[2]);
+		    ly = new BigDecimal(data[3]);
 		}
 		ws.setLowerYield(ly);
 
@@ -67,7 +67,7 @@ public class Utility {
 		r.add(ws);
 	    }
 
-	} catch (final IOException e) {
+	} catch (IOException e) {
 	    e.printStackTrace();
 	}
 	return r;
@@ -79,17 +79,18 @@ public class Utility {
      * @return
      */
     public static List<CurrentPosition> getCurrentPositions() {
-	final List<CurrentPosition> r = new ArrayList<>();
+	List<CurrentPosition> r = new ArrayList<>();
 	r.add(new CurrentPosition("CM.TO", 530));
-	r.add(new CurrentPosition("BMO.TO", 373));
+//	r.add(new CurrentPosition("BMO.TO", 300));
 	r.add(new CurrentPosition("TD.TO", 280));
-	r.add(new CurrentPosition("SU.TO", 460));
+	r.add(new CurrentPosition("SU.TO", 600));
 	r.add(new CurrentPosition("ENB.TO", 350));
-	r.add(new CurrentPosition("SHOP.TO", 172));
+//	r.add(new CurrentPosition("SHOP.TO", 172));
+//	r.add(new CurrentPosition("IAG.TO", 160));
 	return r;
     }
 
     public static BigDecimal getAvailableCash() {
-	return BigDecimal.valueOf(28527);
+	return BigDecimal.valueOf(115070);
     }
 }

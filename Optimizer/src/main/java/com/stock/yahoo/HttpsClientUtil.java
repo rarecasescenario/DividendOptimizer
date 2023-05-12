@@ -14,48 +14,48 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class HttpsClientUtil {
 
-    public static void main(final String[] args) throws Exception {
-	final HttpsClientUtil dude = new HttpsClientUtil();
+    public static void main(String[] args) throws Exception {
+	HttpsClientUtil dude = new HttpsClientUtil();
 	SymbolCurrentState test = null;
-	final String testSymbol = "SLF.TO";
+	String testSymbol = "SLF.TO";
 
 	try {
-	    final InputStream yahooDataPage = dude.getYahooDataPage(testSymbol);
+	    InputStream yahooDataPage = dude.getYahooDataPage(testSymbol);
 	    try {
 		test = dude.getSymbolData(yahooDataPage, testSymbol);
-	    } catch (final Exception e) {
+	    } catch (Exception e) {
 		e.printStackTrace();
 	    }
 
 	    System.out.println("Price: " + test.getPrice() + " Prev. Close: " + test.getPreviousClose()
 		    + " Percent changed: " + test.getChangedPercent());
 	    yahooDataPage.close();
-	} catch (final Exception e) {
+	} catch (Exception e) {
 	    e.printStackTrace();
 	}
     }
 
-    public SymbolCurrentState getSymbolData(final InputStream yahooDataPage, final String symbol) throws Exception {
-	final SymbolCurrentState result = new SymbolCurrentState();
+    public SymbolCurrentState getSymbolData(InputStream yahooDataPage, String symbol) throws Exception {
+	SymbolCurrentState result = new SymbolCurrentState();
 
 	String sPrice = null;
 	String sPreviousClose = null;
 	String sChangedPercent = null;
 	String sMarketCap = null;
 
-	final InputStreamReader isr = new InputStreamReader(yahooDataPage);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStreamReader isr = new InputStreamReader(yahooDataPage);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 
 	while ((inputLine = in.readLine()) != null) {
 
 	    // Price
-	    final String pPrice = "data-symbol=\"" + symbol + "\"";
+	    String pPrice = "data-symbol=\"" + symbol + "\"";
 	    String rawPrice = null;
 	    if (inputLine.contains("data-field=\"regularMarketPrice\"") && inputLine.contains(pPrice)) {
 
-		final int startValue = inputLine.indexOf("value=\"");
-		final int endValue = inputLine.indexOf("active=\"\">");
+		int startValue = inputLine.indexOf("value=\"");
+		int endValue = inputLine.indexOf("active=\"\">");
 		rawPrice = inputLine.substring(startValue, endValue);
 		sPrice = makeItDigit(rawPrice);
 	    }
@@ -78,8 +78,8 @@ public class HttpsClientUtil {
 		    && inputLine.contains("%)</span></fin-streamer>")) {
 
 		// System.out.println("pStart = " + pStart);
-		final int pEnd = inputLine.indexOf("%)</span></fin-streamer>");
-		final int pStart = pEnd - 6;
+		int pEnd = inputLine.indexOf("%)</span></fin-streamer>");
+		int pStart = pEnd - 6;
 		rawPercent = inputLine.substring(pStart, pEnd);
 		// System.out.println("Percent: " + rawPercent);
 		sChangedPercent = makeItDigit(rawPercent);
@@ -89,8 +89,8 @@ public class HttpsClientUtil {
 	    String rawMarketCap = null;
 	    if (inputLine.contains("data-test=\"MARKET_CAP-value")) {
 
-		final int pStart = inputLine.indexOf("data-test=\"MARKET_CAP-value\">") + 29;
-		final int pEnd = pStart + 9;
+		int pStart = inputLine.indexOf("data-test=\"MARKET_CAP-value\">") + 29;
+		int pEnd = pStart + 9;
 
 		rawMarketCap = inputLine.substring(pStart, pEnd);
 		sMarketCap = makeItDigit(rawMarketCap);
@@ -131,36 +131,36 @@ public class HttpsClientUtil {
     /*
      * Get entire Yahoo Data Page as a stream
      */
-    public InputStream getYahooDataPage(final String symbol) throws Exception {
-	final String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
+    public InputStream getYahooDataPage(String symbol) throws Exception {
+	String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
 
-	final URL myurl = new URL(httpsURL);
-	final HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
+	URL myurl = new URL(httpsURL);
+	HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
 	con.setRequestProperty("User-Agent",
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0");
 	return con.getInputStream();
     }
 
-    public String getRawPreviousClose(final InputStream yahooDataPage) throws Exception {
-	final String result = "";
+    public String getRawPreviousClose(InputStream yahooDataPage) throws Exception {
+	String result = "";
 
-	final InputStreamReader isr = new InputStreamReader(yahooDataPage);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStreamReader isr = new InputStreamReader(yahooDataPage);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 	String prevClose = null;
 	String rawResult = null;
 
 	while ((inputLine = in.readLine()) != null) {
 
-	    final String p2 = "data-test=\"PREV_CLOSE-value\">";
+	    String p2 = "data-test=\"PREV_CLOSE-value\">";
 
 	    if (inputLine.contains(p2)) {
 
 		// System.out.println(inputLine);
-		final int startValue = inputLine.indexOf("PREV_CLOSE-value\">");
+		int startValue = inputLine.indexOf("PREV_CLOSE-value\">");
 
-		final String prevChunk = inputLine.substring(startValue + "PREV_CLOSE-value\">".length());
-		final int endValue = prevChunk.indexOf("</td></tr>");
+		String prevChunk = inputLine.substring(startValue + "PREV_CLOSE-value\">".length());
+		int endValue = prevChunk.indexOf("</td></tr>");
 		rawResult = prevChunk.substring(0, endValue);
 		System.out.println("Previous Close Raw Result: " + rawResult);
 
@@ -175,32 +175,32 @@ public class HttpsClientUtil {
     /*
      * String httpsURL = "https://finance.yahoo.com/quote/AAL?p=AAL";
      */
-    public String getRawPreviousClose0(final String symbol) throws Exception {
-	final String result = "";
-	final String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
+    public String getRawPreviousClose0(String symbol) throws Exception {
+	String result = "";
+	String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
 
-	final URL myurl = new URL(httpsURL);
-	final HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
+	URL myurl = new URL(httpsURL);
+	HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
 	con.setRequestProperty("User-Agent",
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0");
-	final InputStream ins = con.getInputStream();
-	final InputStreamReader isr = new InputStreamReader(ins);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStream ins = con.getInputStream();
+	InputStreamReader isr = new InputStreamReader(ins);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 	String prevClose = null;
 	String rawResult = null;
 
 	while ((inputLine = in.readLine()) != null) {
 
-	    final String p2 = "data-test=\"PREV_CLOSE-value\">";
+	    String p2 = "data-test=\"PREV_CLOSE-value\">";
 
 	    if (inputLine.contains(p2)) {
 
 		// System.out.println(inputLine);
-		final int startValue = inputLine.indexOf("PREV_CLOSE-value\">");
+		int startValue = inputLine.indexOf("PREV_CLOSE-value\">");
 
-		final String prevChunk = inputLine.substring(startValue + "PREV_CLOSE-value\">".length());
-		final int endValue = prevChunk.indexOf("</td></tr>");
+		String prevChunk = inputLine.substring(startValue + "PREV_CLOSE-value\">".length());
+		int endValue = prevChunk.indexOf("</td></tr>");
 		rawResult = prevChunk.substring(0, endValue);
 		System.out.println("Previous Close Raw Result: " + rawResult);
 
@@ -215,32 +215,32 @@ public class HttpsClientUtil {
     /*
      * String httpsURL = "https://finance.yahoo.com/quote/AAL?p=AAL";
      */
-    public String getRawPercent(final String symbol) throws Exception {
+    public String getRawPercent(String symbol) throws Exception {
 	String result = "";
 	String price = "";
-	final String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
+	String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
 
-	final URL myurl = new URL(httpsURL);
-	final HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
+	URL myurl = new URL(httpsURL);
+	HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
 	con.setRequestProperty("User-Agent",
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0");
-	final InputStream ins = con.getInputStream();
-	final InputStreamReader isr = new InputStreamReader(ins);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStream ins = con.getInputStream();
+	InputStreamReader isr = new InputStreamReader(ins);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 
 	String rawPercent = null;
 
 	while ((inputLine = in.readLine()) != null) {
 
-	    final String p2 = "data-symbol=\"" + symbol + "\"";
+	    String p2 = "data-symbol=\"" + symbol + "\"";
 	    String rawResult = null;
 
 	    if (inputLine.contains("data-field=\"regularMarketPrice\"") && inputLine.contains(p2)) {
 
 		// System.out.println(inputLine);
-		final int startValue = inputLine.indexOf("value=\"");
-		final int endValue = inputLine.indexOf("active=\"\">");
+		int startValue = inputLine.indexOf("value=\"");
+		int endValue = inputLine.indexOf("active=\"\">");
 		rawResult = inputLine.substring(startValue, endValue);
 
 		price = makeItDigit(rawResult);
@@ -250,14 +250,14 @@ public class HttpsClientUtil {
 			&& inputLine.contains("%)</span></fin-streamer>")) {
 
 		    // System.out.println("pStart = " + pStart);
-		    final int pEnd = inputLine.indexOf("%)</span></fin-streamer>");
+		    int pEnd = inputLine.indexOf("%)</span></fin-streamer>");
 
-		    final int pStart = pEnd - 6;
+		    int pStart = pEnd - 6;
 
 		    rawPercent = inputLine.substring(pStart, pEnd);
 		    // System.out.println("Percent: " + rawPercent);
 
-		    final String percent = makeItDigit(rawPercent);
+		    String percent = makeItDigit(rawPercent);
 		    // System.out.println("PERCENT: " + percent);
 
 		    result = price + ",                    " + percent;
@@ -268,22 +268,22 @@ public class HttpsClientUtil {
 	return result;
     }
 
-    public String getRawPrice(final InputStream yahooDataPage, final String symbol) throws Exception {
+    public String getRawPrice(InputStream yahooDataPage, String symbol) throws Exception {
 	String price = "";
 
-	final InputStreamReader isr = new InputStreamReader(yahooDataPage);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStreamReader isr = new InputStreamReader(yahooDataPage);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 
 	while ((inputLine = in.readLine()) != null) {
 
-	    final String p2 = "data-symbol=\"" + symbol + "\"";
+	    String p2 = "data-symbol=\"" + symbol + "\"";
 	    String rawResult = null;
 
 	    if (inputLine.contains("data-field=\"regularMarketPrice\"") && inputLine.contains(p2)) {
 
-		final int startValue = inputLine.indexOf("value=\"");
-		final int endValue = inputLine.indexOf("active=\"\">");
+		int startValue = inputLine.indexOf("value=\"");
+		int endValue = inputLine.indexOf("active=\"\">");
 		rawResult = inputLine.substring(startValue, endValue);
 		price = makeItDigit(rawResult);
 	    }
@@ -295,28 +295,28 @@ public class HttpsClientUtil {
     /*
      * String httpsURL = "https://finance.yahoo.com/quote/AAL?p=AAL";
      */
-    public String getRawPrice0(final String symbol) throws Exception {
+    public String getRawPrice0(String symbol) throws Exception {
 	String price = "";
-	final String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
+	String httpsURL = "https://finance.yahoo.com/quote/" + symbol + "?p=" + symbol;
 
-	final URL myurl = new URL(httpsURL);
-	final HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
+	URL myurl = new URL(httpsURL);
+	HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
 	con.setRequestProperty("User-Agent",
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0");
-	final InputStream ins = con.getInputStream();
-	final InputStreamReader isr = new InputStreamReader(ins);
-	final BufferedReader in = new BufferedReader(isr);
+	InputStream ins = con.getInputStream();
+	InputStreamReader isr = new InputStreamReader(ins);
+	BufferedReader in = new BufferedReader(isr);
 	String inputLine;
 
 	while ((inputLine = in.readLine()) != null) {
 
-	    final String p2 = "data-symbol=\"" + symbol + "\"";
+	    String p2 = "data-symbol=\"" + symbol + "\"";
 	    String rawResult = null;
 
 	    if (inputLine.contains("data-field=\"regularMarketPrice\"") && inputLine.contains(p2)) {
 
-		final int startValue = inputLine.indexOf("value=\"");
-		final int endValue = inputLine.indexOf("active=\"\">");
+		int startValue = inputLine.indexOf("value=\"");
+		int endValue = inputLine.indexOf("active=\"\">");
 		rawResult = inputLine.substring(startValue, endValue);
 
 		price = makeItDigit(rawResult);
@@ -334,7 +334,7 @@ public class HttpsClientUtil {
      * @param p Piece of raw string containing data
      * @return Digital representation of the value
      */
-    public synchronized String makeItDigit(final String p) {
+    public synchronized String makeItDigit(String p) {
 	String result = "";
 	boolean isDigitSeen = false;
 	int e;
