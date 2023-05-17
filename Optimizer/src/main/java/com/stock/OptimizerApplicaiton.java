@@ -69,7 +69,7 @@ public class OptimizerApplicaiton {
 	    final Optional<CurrentPosition> cplR = cpl.stream().filter(r -> r.getSymbol().equalsIgnoreCase(symbol))
 		    .findFirst();
 
-	    if (!cplR.isEmpty()) {
+	    if (cplR != null && !cplR.isEmpty()) {
 		numberOfShares = cplR.get().getNumberOfShares();
 
 		totalAssets = BigDecimal.valueOf(numberOfShares).multiply(scs.get().getPrice());
