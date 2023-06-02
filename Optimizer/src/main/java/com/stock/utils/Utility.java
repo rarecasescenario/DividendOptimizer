@@ -80,17 +80,18 @@ public class Utility {
      */
     public static List<CurrentPosition> getCurrentPositions() {
 	List<CurrentPosition> r = new ArrayList<>();
-//	r.add(new CurrentPosition("CM.TO", 530));
-//	r.add(new CurrentPosition("BMO.TO", 300));
+	r.add(new CurrentPosition("CM.TO", 560));
+	r.add(new CurrentPosition("BMO.TO", 200));
 //	r.add(new CurrentPosition("TD.TO", 280));
-	r.add(new CurrentPosition("SU.TO", 600));
+//	r.add(new CurrentPosition("SU.TO", 600));
 	r.add(new CurrentPosition("ENB.TO", 650));
 //	r.add(new CurrentPosition("SHOP.TO", 172));
 //	r.add(new CurrentPosition("IAG.TO", 160));
+	r.add(new CurrentPosition("RY.TO", 760));
 	return r;
     }
 
     public static BigDecimal getAvailableCash() {
-	return BigDecimal.valueOf(15054);
+	return BigDecimal.valueOf(740);
     }
 }

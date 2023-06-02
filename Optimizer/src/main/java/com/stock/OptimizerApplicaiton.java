@@ -44,9 +44,9 @@ public class OptimizerApplicaiton {
 	int resDiv;
 	int resAction;
 
-	System.out.println("========================================================================================");
-	System.out.println("| Symbol  |Shares| Price  | Position,$| QDiv,$ | QDivAmt|UpperY| MidY | CYield | YDiff |");
-	System.out.println("========================================================================================");
+	System.out.println("=========================================================================================");
+	System.out.println("| Symbol  |Shares| Price  | Position,$| QDiv,$ | QDivAmt |UpperY| MidY | CYield | YDiff |");
+	System.out.println("=========================================================================================");
 
 	for (int i = 0; i < sl.size(); i++) {
 	    final String symbol = sl.get(i).getSymbol();
@@ -134,12 +134,12 @@ public class OptimizerApplicaiton {
 		action = "   ";
 	    }
 
-	    System.out.printf("| %-7S | %4s | %6.2f | %9s | %6.2f | %6s | %4.2f | %4.2f | %5.2f | % 5.3f | %-12s %n",
+	    System.out.printf("| %-7S | %4s | %6.2f | %9s | %6.2f | %7s | %5.2f | %4.2f | %5.2f | % 5.3f | %-12s %n",
 		    symbol, strShares, scs.get().getPrice(), strPosition, ws.get().getQuoterlyDividendAmount(),
 		    strSymbolQDiv, upperYield, middleOfYieldRange, yield, yieldDiff, action);
 	}
 	totalAccount = totalAccount.add(cash);
-	System.out.println("========================================================================================");
+	System.out.println("=========================================================================================");
 	System.out.printf("  Quaterly Dividends,$ %,8.2f  Account Total,$: %,10.2f %n", totalDividends, totalAccount);
 	System.out.printf("  Available Cash,$ %,10.2f %n", cash);
     }
