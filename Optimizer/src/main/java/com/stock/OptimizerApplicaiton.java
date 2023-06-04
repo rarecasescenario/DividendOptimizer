@@ -33,6 +33,7 @@ public class OptimizerApplicaiton {
 
 	// Calculate current assets
 	final BigDecimal cash = Utility.getAvailableCash();
+	BigDecimal investedAmount = Utility.getInvestedAmount();
 	BigDecimal totalDividends = new BigDecimal(0);
 	BigDecimal totalAssets = new BigDecimal(0);
 	BigDecimal totalAccount = new BigDecimal(0);
@@ -139,8 +140,10 @@ public class OptimizerApplicaiton {
 		    strSymbolQDiv, upperYield, middleOfYieldRange, yield, yieldDiff, action);
 	}
 	totalAccount = totalAccount.add(cash);
+	BigDecimal pl = totalAccount.subtract(investedAmount);
 	System.out.println("=========================================================================================");
 	System.out.printf("  Quaterly Dividends,$ %,8.2f  Account Total,$: %,10.2f %n", totalDividends, totalAccount);
-	System.out.printf("  Available Cash,$ %,10.2f %n", cash);
+	System.out.printf("  Available Cash: $%,10.2f %n", cash);
+	System.out.printf("  Invested Amount: $%,10.2f    P/L: $%,10.2f  %n", investedAmount, pl);
     }
 }

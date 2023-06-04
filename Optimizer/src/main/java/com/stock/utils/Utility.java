@@ -94,4 +94,8 @@ public class Utility {
     public static BigDecimal getAvailableCash() {
 	return BigDecimal.valueOf(740);
     }
+
+    public static BigDecimal getInvestedAmount() {
+	return BigDecimal.valueOf(187044);
+    }
 }
