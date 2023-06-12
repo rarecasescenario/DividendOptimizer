@@ -31,8 +31,14 @@ implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
 //	implementation group: 'org.apache.logging.log4j', name: 'log4j-web', version: '2.17.1'
 //	implementation fileTree(dir: 'lib', include: '*.jar')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
+tasks.named('test') {
+	useJUnitPlatform()
+}
 
 jar {
 	archiveFileName = "divoptimizer.jar"

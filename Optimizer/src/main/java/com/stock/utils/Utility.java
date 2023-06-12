@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,18 @@ import com.stock.data.CurrentPosition;
 import com.stock.data.WatchSymbol;
 
 public class Utility {
+
+    // Formatter for LocalDate: Date and Time
+    protected DateTimeFormatter dateTimeFormatter;
+    // Formatter for LocalDate: Date only
+    protected DateTimeFormatter dateFormatter;
+
+    public DateTimeFormatter getDateTimeFormatter() {
+	if (dateTimeFormatter == null) {
+	    dateTimeFormatter = DateTimeFormatter.ofPattern(StringUtility.DF_YYYYMMDD_HHMMSS);
+	}
+	return dateTimeFormatter;
+    }
 
     /**
      * Getting a watch list
@@ -80,19 +93,19 @@ public class Utility {
      */
     public static List<CurrentPosition> getCurrentPositions() {
 	List<CurrentPosition> r = new ArrayList<>();
-	r.add(new CurrentPosition("CM.TO", 560));
-	r.add(new CurrentPosition("BMO.TO", 200));
-//	r.add(new CurrentPosition("TD.TO", 280));
+//	r.add(new CurrentPosition("CM.TO", 560));
+//	r.add(new CurrentPosition("BMO.TO", 200));
+//	r.add(new CurrentPosition("TD.TO", 250));
 //	r.add(new CurrentPosition("SU.TO", 600));
-	r.add(new CurrentPosition("ENB.TO", 650));
+//	r.add(new CurrentPosition("ENB.TO", 650));
 //	r.add(new CurrentPosition("SHOP.TO", 172));
 //	r.add(new CurrentPosition("IAG.TO", 160));
-	r.add(new CurrentPosition("RY.TO", 760));
+//	r.add(new CurrentPosition("RY.TO", 250));
 	return r;
     }
 
     public static BigDecimal getAvailableCash() {
-	return BigDecimal.valueOf(740);
+	return BigDecimal.valueOf(183342);
     }
 
     public static BigDecimal getInvestedAmount() {

@@ -2,6 +2,7 @@ package com.stock;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -17,7 +18,7 @@ public class OptimizerApplicaiton {
 
     public static void main(final String[] args) throws InterruptedException, ExecutionException {
 
-	final CurrentYahooData cyd = new CurrentYahooData();
+	final CurrentYahooData currentYahooData = new CurrentYahooData();
 
 	final List<WatchSymbol> sl = Utility.readWatchList();
 	final List<CurrentPosition> cpl = Utility.getCurrentPositions();
@@ -28,7 +29,7 @@ public class OptimizerApplicaiton {
 	final List<String> workList = sl.stream().map(t -> t.getSymbol()).collect(Collectors.toList());
 	// workList.forEach(System.out::println);
 
-	final List<SymbolCurrentState> symbolCurrentState = cyd.getData(workList);
+	final List<SymbolCurrentState> symbolCurrentState = currentYahooData.getData(workList);
 	System.out.println("symbolCurrentState size = " + symbolCurrentState.size());
 
 	// Calculate current assets
@@ -44,6 +45,8 @@ public class OptimizerApplicaiton {
 	int resTotalAssets;
 	int resDiv;
 	int resAction;
+
+	System.out.println("\n" + new Utility().getDateTimeFormatter().format(LocalDateTime.now()));
 
 	System.out.println("=========================================================================================");
 	System.out.println("| Symbol  |Shares| Price  | Position,$| QDiv,$ | QDivAmt |UpperY| MidY | CYield | YDiff |");
