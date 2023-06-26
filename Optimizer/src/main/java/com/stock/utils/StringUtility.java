@@ -1,6 +1,7 @@
 package com.stock.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class StringUtility {
 
@@ -20,6 +21,28 @@ public class StringUtility {
 	    return null;
 	}
 	return new BigDecimal(amount);
+    }
+
+    public static String formatNumberToString(BigDecimal pDouble, boolean blankIfZero, int precision) {
+	String numberFormat;
+	char[] precisionFormat = { '.', '0', '0', '0', '0', '0' };
+
+	if (precision > 5) {
+	    precision = 5;
+	}
+
+	if (pDouble == null) {
+	    pDouble = new BigDecimal(0);
+	    blankIfZero = true;
+	}
+
+	numberFormat = "#,##0";
+	if (precision > 0) {
+	    numberFormat = numberFormat + String.copyValueOf(precisionFormat, 0, precision + 1);
+	}
+
+	String retString = new DecimalFormat(numberFormat).format(pDouble.doubleValue());
+	return pDouble.doubleValue() == 0.0 && blankIfZero ? "" : retString;
     }
 
 }
