@@ -14,7 +14,7 @@ import com.stock.utils.Utility;
 import com.stock.yahoo.CurrentYahooData;
 import com.stock.yahoo.SymbolCurrentState;
 
-public class OptimizerApplicaiton {
+public class OptimizerApplication {
 
     public static void main(final String[] args) throws InterruptedException, ExecutionException {
 

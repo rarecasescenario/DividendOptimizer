@@ -13,8 +13,8 @@ plugins {
 
 group = 'build'
 description = 'Creating a war file'
-sourceCompatibility = 19
-targetCompatibility = 19
+sourceCompatibility = 17
+targetCompatibility = 17
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -50,7 +50,7 @@ jar {
 			'Created-By'		: "Gradle ${gradle.gradleVersion}",
 			'Build-Jdk'			: "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
 			'Build-OS'			: "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
-			'Main-Class'        : "org.tutorials.PlainSpringMain",
+			'Main-Class'        : "com.stock.OptimizerApplication",
 			'Implementation-Vendor' : "RareCase Corp",
 			'Implementation-Title' : "Dividend Optimizer",
 			'Version' : "${archiveVersion}",
@@ -59,7 +59,7 @@ jar {
 		)
 	}
 	from('resources') {
-		include 'log4j2-pswb.xml'
+		include 'log4j2.xml'
 	}
 	//duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 	//duplicatesStrategy = DuplicatesStrategy.INCLUDE
