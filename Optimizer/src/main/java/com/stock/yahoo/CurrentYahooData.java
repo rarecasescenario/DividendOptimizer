@@ -23,7 +23,7 @@ public class CurrentYahooData {
 
     CurrentYahooData.symbolQueue = new ArrayBlockingQueue<>(symbolList.size());
     CurrentYahooData.symbolQueue.addAll(symbolList);
-    System.out.println("Sumbol Queue size: " + CurrentYahooData.symbolQueue.size());
+    System.out.println("Symbol Queue size: " + CurrentYahooData.symbolQueue.size());
 
     CurrentYahooData tc = new CurrentYahooData();
     List<Callable<SymbolCurrentState>> callableTasks = tc.getTasks(symbolList);

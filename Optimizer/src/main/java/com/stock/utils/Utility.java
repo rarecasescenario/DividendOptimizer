@@ -93,24 +93,24 @@ public class Utility {
    */
   public static List<CurrentPosition> getCurrentPositions() {
     List<CurrentPosition> r = new ArrayList<>();
-    r.add(new CurrentPosition("CM.TO", 300));
+    // r.add(new CurrentPosition("CM.TO", 300));
     // r.add(new CurrentPosition("BMO.TO", 200));
-    // r.add(new CurrentPosition("BNS.TO", 730));
+    // r.add(new CurrentPosition("BNS.TO", 586));
     // r.add(new CurrentPosition("TD.TO", 250));
-    r.add(new CurrentPosition("SU.TO", 300));
-    r.add(new CurrentPosition("ENB.TO", 600));
+    // r.add(new CurrentPosition("SU.TO", 300));
+    // r.add(new CurrentPosition("ENB.TO", 300));
     // r.add(new CurrentPosition("SHOP.TO", 172));
     // r.add(new CurrentPosition("IAG.TO", 160));
     // r.add(new CurrentPosition("RY.TO", 250));
-    r.add(new CurrentPosition("BCE.TO", 600));
+    // r.add(new CurrentPosition("BCE.TO", 300));
     return r;
   }
 
   public static BigDecimal getAvailableCash() {
-    return BigDecimal.valueOf(47511);
+    return BigDecimal.valueOf(80488.77);
   }
 
   public static BigDecimal getInvestedAmount() {
-    return BigDecimal.valueOf(140000); // 187044
+    return BigDecimal.valueOf(80000); // 187044
   }
 }
