@@ -98,7 +98,7 @@ public class Utility {
     // r.add(new CurrentPosition("BNS.TO", 500));
     r.add(new CurrentPosition("CM.TO", 300));
     // r.add(new CurrentPosition("BCE.TO", 200));
-    // r.add(new CurrentPosition("FTS.TO", 300));
+    r.add(new CurrentPosition("FTS.TO", 300));
     // r.add(new CurrentPosition("SU.TO", 300));
     // r.add(new CurrentPosition("BMO.TO", 300));
     // r.add(new CurrentPosition("TD.TO", 250));
@@ -108,7 +108,7 @@ public class Utility {
   }
 
   public static BigDecimal getAvailableCash() {
-    return BigDecimal.valueOf(175837.65);
+    return BigDecimal.valueOf(159867.70);
   }
 
   public static BigDecimal getInvestedAmount() {
