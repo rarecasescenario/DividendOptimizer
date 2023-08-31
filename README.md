@@ -24,3 +24,8 @@ Run the app
 
 Run this time to time once a day or a week to see what it is suggested to buy.
 ```
+
+#Removed from Watch
+```
+EMA.TO,0.69,5.2,4.68,0131,0530,0830,1130
+```
