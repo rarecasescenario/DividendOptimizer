@@ -100,7 +100,8 @@ public class OptimizerApplication {
       middleOfYieldRange =
           (upperYield.add(lowerYield)).divide(BigDecimal.valueOf(2), 3, RoundingMode.HALF_EVEN);
 
-      yieldDiff = yield.subtract(middleOfYieldRange);
+      // orig yieldDiff = yield.subtract(middleOfYieldRange);
+      yieldDiff = upperYield.subtract(yield);
 
       // Action = "Strong Buy" if CYield is greater than UpYield
       res = yield.compareTo(ws.get().getUpperYield());

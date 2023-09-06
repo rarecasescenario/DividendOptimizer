@@ -93,25 +93,29 @@ public class Utility {
    */
   public static List<CurrentPosition> getCurrentPositions() {
     List<CurrentPosition> r = new ArrayList<>();
-    // r.add(new CurrentPosition("SHOP.TO", 600));
-    r.add(new CurrentPosition("ENB.TO", 500));
+    // r.add(new CurrentPosition("NA.TO", 300));
+    r.add(new CurrentPosition("ENB.TO", 600));
     // r.add(new CurrentPosition("BNS.TO", 500));
-    r.add(new CurrentPosition("CM.TO", 300));
+    // r.add(new CurrentPosition("CM.TO", 300));
     // r.add(new CurrentPosition("BCE.TO", 200));
     r.add(new CurrentPosition("FTS.TO", 300));
     // r.add(new CurrentPosition("SU.TO", 300));
-    // r.add(new CurrentPosition("BMO.TO", 300));
+    r.add(new CurrentPosition("BMO.TO", 600));
     // r.add(new CurrentPosition("TD.TO", 250));
     // r.add(new CurrentPosition("IAG.TO", 160));
-    // r.add(new CurrentPosition("RY.TO", 250));
+    r.add(new CurrentPosition("RY.TO", 300));
     return r;
   }
 
   public static BigDecimal getAvailableCash() {
-    return BigDecimal.valueOf(159867.70);
+    return BigDecimal.valueOf(67168.45);
   }
 
   public static BigDecimal getInvestedAmount() {
-    return BigDecimal.valueOf(213036); // 108,036.00 212562 212090 187044 140488.77 141164.27
+    return BigDecimal.valueOf(216822.10); // 216605.05 215874.65 215874.65 213,036 108,036.00 212562
+                                          // 212090
+                                          // 187044
+                                          // 140488.77
+                                          // 141164.27
   }
 }
