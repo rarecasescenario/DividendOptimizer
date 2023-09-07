@@ -96,19 +96,19 @@ public class Utility {
     // r.add(new CurrentPosition("NA.TO", 300));
     r.add(new CurrentPosition("ENB.TO", 600));
     // r.add(new CurrentPosition("BNS.TO", 500));
-    // r.add(new CurrentPosition("CM.TO", 300));
+    r.add(new CurrentPosition("CM.TO", 300));
     // r.add(new CurrentPosition("BCE.TO", 200));
     r.add(new CurrentPosition("FTS.TO", 300));
     // r.add(new CurrentPosition("SU.TO", 300));
     r.add(new CurrentPosition("BMO.TO", 600));
     // r.add(new CurrentPosition("TD.TO", 250));
     // r.add(new CurrentPosition("IAG.TO", 160));
-    r.add(new CurrentPosition("RY.TO", 300));
+    r.add(new CurrentPosition("RY.TO", 720));
     return r;
   }
 
   public static BigDecimal getAvailableCash() {
-    return BigDecimal.valueOf(67168.45);
+    return BigDecimal.valueOf(387.40);
   }
 
   public static BigDecimal getInvestedAmount() {
